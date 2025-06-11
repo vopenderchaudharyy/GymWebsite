@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get Started</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('./images/gym03.jpg') no-repeat center center fixed;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+  display: flex;
+    }
+
+    .login-container {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .google-btn {
+      background-color: #fff;
+      color: #444;
+      border: 1px solid #ccc;
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      color: lightgreen;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Get Started</h2>
+
+    <input type="email" id="email" placeholder="Email ID" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+
+    <div style="margin: 15px 0; text-align: center; color: #ccc;">OR</div>
+
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo">
+      Continue with Google
+    </button>
+
+    <p class="message" id="message">Verifying your email...</p>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      if (email && password) {
+        message.style.display = "block";
+        message.textContent = "Verifying your email...";
+        setTimeout(() => {
+          message.textContent = "Email Verified! Redirecting...";
+          setTimeout(() => {
+            window.location.href = "main.html"; // Redirect to main site
+          }, 1500);
+        }, 2000);
+      } else {
+        alert("Please fill in all fields!");
+      }
+    }
+
+    function googleLogin() {
+      const message = document.getElementById("message");
+      message.style.display = "block";
+      message.textContent = "Signing in with Google...";
+      setTimeout(() => {
+        message.textContent = "Google account verified! Redirecting...";
+        setTimeout(() => {
+          window.location.href = "main.html";
+        }, 1500);
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
+    

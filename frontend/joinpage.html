@@ -268,7 +268,7 @@
       e.preventDefault();
       const formData = new FormData(joinForm);
       try {
-        const response = await fetch('/api/join', {
+        const response = await fetch('http://localhost:5000/api/join', {
           method: 'POST',
           headers: { 'x-auth-token': localStorage.getItem('token') },
           body: formData,

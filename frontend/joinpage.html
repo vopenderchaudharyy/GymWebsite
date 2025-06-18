@@ -12,28 +12,29 @@
       padding: 0;
       font-family: 'Poppins', sans-serif;
     }
- body {
-  background: url('./images/gym03.jpg') no-repeat center center fixed;
-  size: adjust 50%;
-  background-size: cover;
-  color: #ffffff;
-  padding: 20px;
-  opacity: 95%;
-}
-a{
-  color: #ffffff;
-  text-decoration: none;
-}
+    body {
+      background: url('./images/gym03.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      padding: 20px;
+      opacity: 95%;
+    }
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #00aaff;
+    }
     .container {
-  max-width: 900px;
-  margin-left: auto; /* pushes it to the right */
-  margin-right: 50px; /* optional: some spacing from the right edge */
-  background-color: #000000;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-}
-
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: 50px;
+      background-color: #000000;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    }
     h1 {
       text-align: center;
       color: #00aaff;
@@ -55,7 +56,7 @@ a{
       width: 100%;
       border-radius: 15px;
     }
-    .form-group {
+    .form-group, .profile-group {
       margin-bottom: 20px;
     }
     label {
@@ -96,6 +97,21 @@ a{
     button:hover {
       background-color: #008ecc;
     }
+    #join-form, #profile {
+      display: none;
+    }
+    #profile h2 {
+      color: #00aaff;
+      margin-bottom: 20px;
+    }
+    #profile p {
+      margin-bottom: 10px;
+    }
+    #profile img {
+      max-width: 200px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
     @media (max-width: 600px) {
       .container {
         padding: 20px;
@@ -110,7 +126,6 @@ a{
   </style>
 </head>
 <body>
-  
   <div>
     <h2><a href="index.html">Home</a></h2>
   </div>
@@ -119,71 +134,163 @@ a{
       <img src="./images/fitness.png" alt="Join FitAndSporty" />
     </div>
     <h1>Join FitAndSporty</h1>
-    <p class="subtitle">Be part of a community that inspires growth, strength, and transformation. Register now and let’s reach your goals together.</p>
-    <form action="#" method="POST">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required />
-      </div>
-      <div class="form-group">
-        <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" name="dob" required />
-      </div>
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <select id="gender" name="gender">
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="membership">Select Membership Plan</label>
-        <select id="membership" name="membership">
-          <option>1 Month</option>
-          <option>3 Months</option>
-          <option>6 Months</option>
-          <option>1 Year</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="time">Preferred Workout Time</label>
-        <select id="time" name="time">
-          <option>Morning</option>
-          <option>Afternoon</option>
-          <option>Evening</option>
-        </select>
-      </div>
-      <div class="form-group checkbox-group">
-        <label>Fitness Goals:</label><br />
-        <label><input type="checkbox" name="goal" value="Weight Loss"> Weight Loss</label>
-        <label><input type="checkbox" name="goal" value="Muscle Gain"> Muscle Gain</label>
-        <label><input type="checkbox" name="goal" value="General Fitness"> General Fitness</label>
-        <label><input type="checkbox" name="goal" value="Sports Training"> Sports Training</label>
-      </div>
-      <div class="form-group">
-        <label for="emergency">Emergency Contact Name & Number</label>
-        <input type="text" id="emergency" name="emergency" />
-      </div>
-      <div class="form-group">
-        <label for="photo">Upload Photo (Optional)</label>
-        <input type="file" id="photo" name="photo" accept="image/*" />
-      </div>
-      <div class="form-group">
-        <label><input type="checkbox" name="terms" required /> I agree to the Terms & Conditions</label>
-      </div>
-      <div style="text-align: center;">
-        <button type="submit">Join Now</button>
-      </div>
-    </form>
+    <p class="subtitle">Be part of a community that inspires growth, strength, and transformation.</p>
+    <div id="join-form">
+      <form id="join-form-element" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="membership">Select Membership Plan</label>
+          <select id="membership" name="membership" required>
+            <option value="">Select Plan</option>
+            <option value="1 Month">1 Month</option>
+            <option value="3 Months">3 Months</option>
+            <option value="6 Months">6 Months</option>
+            <option value="1 Year">1 Year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="time">Preferred Workout Time</label>
+          <select id="time" name="workoutTime" required>
+            <option value="">Select Time</option>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+          </select>
+        </div>
+        <div class="form-group checkbox-group">
+          <label>Fitness Goals:</label><br />
+          <label><input type="checkbox" name="goal[]" value="Weight Loss"> Weight Loss</label>
+          <label><input type="checkbox" name="goal[]" value="Muscle Gain"> Muscle Gain</label>
+          <label><input type="checkbox" name="goal[]" value="General Fitness"> General Fitness</label>
+          <label><input type="checkbox" name="goal[]" value="Sports Training"> Sports Training</label>
+        </div>
+        <div class="form-group">
+          <label for="emergency">Emergency Contact Name & Number</label>
+          <input type="text" id="emergency" name="emergencyContact" required />
+        </div>
+        <div class="form-group">
+          <label for="photo">Upload Photo (Optional)</label>
+          <input type="file" id="photo" name="photo" accept="image/*" />
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="termsAgreed" value="true" required /> I agree to the Terms & Conditions</label>
+        </div>
+        <div style="text-align: center;">
+          <button type="submit">Join Now</button>
+        </div>
+      </form>
+    </div>
+    <div id="profile">
+      <h2>Your Profile</h2>
+      <p><strong>Name:</strong> <span id="profile-name"></span></p>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+      <p><strong>Phone:</strong> <span id="profile-phone"></span></p>
+      <p><strong>Date of Birth:</strong> <span id="profile-dob"></span></p>
+      <p><strong>Gender:</strong> <span id="profile-gender"></span></p>
+      <p><strong>Membership Plan:</strong> <span id="profile-membership"></span></p>
+      <p><strong>Workout Time:</strong> <span id="profile-workoutTime"></span></p>
+      <p><strong>Fitness Goals:</strong> <span id="profile-fitnessGoals"></span></p>
+      <p><strong>Emergency Contact:</strong> <span id="profile-emergencyContact"></span></p>
+      <p><strong>Photo:</strong></p>
+      <img id="profile-photo" src="" alt="Profile Photo" style="display: none;" />
+    </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/user', {
+          headers: { 'x-auth-token': token },
+        });
+
+        if (!response.ok) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Failed to fetch user data');
+          } else {
+            throw new Error('Server error: ' + response.status);
+          }
+        }
+
+        const user = await response.json();
+        if (user.hasJoined) {
+          document.getElementById('join-form').style.display = 'none';
+          document.getElementById('profile').style.display = 'block';
+          document.getElementById('profile-name').textContent = user.name;
+          document.getElementById('profile-email').textContent = user.email;
+          document.getElementById('profile-phone').textContent = user.phone;
+          document.getElementById('profile-dob').textContent = new Date(user.dob).toLocaleDateString();
+          document.getElementById('profile-gender').textContent = user.gender;
+          document.getElementById('profile-membership').textContent = user.membership;
+          document.getElementById('profile-workoutTime').textContent = user.workoutTime;
+          document.getElementById('profile-fitnessGoals').textContent = user.fitnessGoals.join(', ');
+          document.getElementById('profile-emergencyContact').textContent = user.emergencyContact;
+          if (user.photo) {
+            document.getElementById('profile-photo').src = user.photo;
+            document.getElementById('profile-photo').style.display = 'block';
+          }
+        } else {
+          document.getElementById('join-form').style.display = 'block';
+          document.getElementById('profile').style.display = 'none';
+        }
+      } catch (err) {
+        console.error(err);
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+      }
+    });
+
+    const joinForm = document.getElementById('join-form-element');
+    joinForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(joinForm);
+      try {
+        const response = await fetch('/api/join', {
+          method: 'POST',
+          headers: { 'x-auth-token': localStorage.getItem('token') },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Error joining');
+          } else {
+            throw new Error('Server error: ' + response.status);
+          }
+        }
+
+        alert('Successfully joined');
+        window.location.reload();
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Server error');
+      }
+    });
+  </script>
 </body>
 </html>

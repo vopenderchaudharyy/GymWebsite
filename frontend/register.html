@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Get Started</title>
+  <title>Get Started - Signup</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,9 +15,7 @@
       align-items: center;
       justify-content: center;
       background-size: cover;
-  display: flex;
     }
-
     .login-container {
       background-color: rgba(0, 0, 0, 0.85);
       padding: 40px;
@@ -26,20 +24,19 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
       color: #fff;
     }
-
     .login-container h2 {
       text-align: center;
       margin-bottom: 20px;
     }
-
     .login-container input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
       border: none;
       border-radius: 5px;
+      background-color: #2a2a2a;
+      color: #fff;
     }
-
     .login-container button {
       width: 100%;
       padding: 12px;
@@ -51,87 +48,86 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
-    .google-btn {
-      background-color: #fff;
-      color: #444;
-      border: 1px solid #ccc;
-      font-weight: normal;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    .login-container button:hover {
+      background-color: #218838;
     }
-
-    .google-btn img {
-      width: 20px;
-      height: 20px;
-    }
-
     .message {
       text-align: center;
       margin-top: 15px;
       color: lightgreen;
       display: none;
     }
-    .home{
-      color:#fff;
+    .home, a {
+      color: #fff;
       text-decoration: none;
+    }
+    .home:hover, a:hover {
+      color: #00aaff;
     }
   </style>
 </head>
 <body>
-
-  
   <div class="login-container">
     <h4><a class="home" href="index.html">Home</a></h4>
     <h2>Get Started</h2>
-
-    <input type="text" placeholder="Enter Your Full Name">
+    <input type="text" id="name" placeholder="Enter Your Full Name" required>
     <input type="email" id="email" placeholder="Email ID" required />
     <input type="password" id="password" placeholder="Password" required />
     <input type="password" id="cpassword" placeholder="Confirm Password" required />
-    <button onclick="login()">signup</button>
-
-      <div style="margin: 15px 0; text-align: center; color: #ccc;"><a class="home" href="login.html">Login</a></div>
-
-
-    <p class="message" id="message">Verifying your email...</p>
+    <button onclick="signup()">Signup</button>
+    <div style="margin: 15px 0; text-align: center; color: #ccc;">
+      <a href="login.html">Login</a>
+    </div>
+    <p class="message" id="message"></p>
   </div>
 
   <script>
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const message = document.getElementById("message");
+   async function signup() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const cpassword = document.getElementById("cpassword").value;
+  const message = document.getElementById("message");
 
-      if (email && password) {
-        message.style.display = "block";
-        message.textContent = "Verifying your email...";
-        setTimeout(() => {
-          message.textContent = "Email Verified! Redirecting...";
-          setTimeout(() => {
-            window.location.href = "main.html"; // Redirect to main site
-          }, 1500);
-        }, 2000);
+  if (!name || !email || !password || !cpassword) {
+    alert("Please fill in all fields!");
+    return;
+  }
+  if (password !== cpassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/auth/signup', { // Update URL if needed
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (!response.ok) {
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await response.json();
+        throw new Error(errorData.msg || 'Signup failed');
       } else {
-        alert("Please fill in all fields!");
+        throw new Error('Server error: ' + response.status);
       }
     }
 
-    function googleLogin() {
-      const message = document.getElementById("message");
-      message.style.display = "block";
-      message.textContent = "Signing in with Google...";
-      setTimeout(() => {
-        message.textContent = "Google account verified! Redirecting...";
-        setTimeout(() => {
-          window.location.href = "main.html";
-        }, 1500);
-      }, 2000);
-    }
+    const data = await response.json();
+    localStorage.setItem('token', data.token);
+    message.style.display = "block";
+    message.textContent = "Signup successful! Redirecting...";
+    setTimeout(() => {
+      window.location.href = 'joinpage.html';
+    }, 1500);
+  } catch (err) {
+    console.error(err);
+    message.style.display = "block";
+    message.textContent = err.message || "Server error";
+  }
+}
   </script>
-
 </body>
 </html>
-    
